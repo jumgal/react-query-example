@@ -1,7 +1,7 @@
 // import axios from 'axios';
 import { useEffect, useState } from "react";
+import usePosts from "../hooks/usePosts";
 
-import usePosts from "./hooks/usePosts";
 
 // interface Post {
 //   id: number;
@@ -21,18 +21,12 @@ const PostList = () => {
   //     .catch((error) => setError(error));
   // }, []);
 
-  // const [userId, setUserId] = useState<number>()
-  const pageSize = 10;
-  const [page, setPage] = useState(1);
+  const [userId, setUserId] = useState<number>()
+  console.log(userId)
 
-  const {
-    data: posts,
-    error,
-    isLoading,
-  } = usePosts({
-    page,
-    pageSize,
-  });
+//   const { data: posts, error, isLoading } = usePosts(userId);
+
+const { data: posts, error, isLoading } = usePosts(userId);
 
   if (isLoading) {
     return <h1>Loading ...</h1>;
@@ -54,16 +48,6 @@ const PostList = () => {
           </li>
         ))}
       </ul>
-      <button
-        className="btn btn-primary p-3 m-2"
-        disabled={page === 1}
-        onClick={() => setPage(page - 1)}
-      >
-        Prev
-      </button>
-      <button className="btn btn-primary p-3" onClick={() => setPage(page + 1)}>
-        Next
-      </button>
     </>
   );
 };
